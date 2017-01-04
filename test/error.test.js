@@ -107,5 +107,5 @@ test('err serializer', function (t) {
   }))
 
   instance.level = name
-  instance[name]({ err })
+  instance[name]({ err: err })
 })
