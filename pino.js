@@ -11,6 +11,7 @@ var util = require('util')
 var pid = process.pid
 var hostname = os.hostname()
 var baseLog = flatstr('{"pid":' + pid + ',"hostname":"' + hostname + '",')
+var extend = require('object.assign').getPolyfill()
 
 var LOG_VERSION = 1
 
@@ -87,7 +88,7 @@ function pino (opts, stream) {
     iopts = defaultOptions
   }
   istream = istream || process.stdout
-  iopts = Object.assign({}, defaultOptions, iopts)
+  iopts = extend({}, defaultOptions, iopts)
 
   // internal options
   iopts.stringify = iopts.safe ? stringifySafe : JSON.stringify
@@ -286,7 +287,7 @@ Pino.prototype.child = function child (bindings) {
   var opts = {
     level: bindings.level || this.level,
     levelVal: isStandardLevelVal(this.levelVal) ? undefined : this.levelVal,
-    serializers: bindings.hasOwnProperty('serializers') ? Object.assign(this.serializers, bindings.serializers) : this.serializers,
+    serializers: bindings.hasOwnProperty('serializers') ? extend(this.serializers, bindings.serializers) : this.serializers,
     stringify: this.stringify,
     end: this.end,
     name: this.name,
