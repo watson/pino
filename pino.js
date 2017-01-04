@@ -413,7 +413,7 @@ function genLog (z) {
       l = typeof a === 'string' ? countInterp(a, '%j') : 0
       if (l) {
         n.length = l + countInterp(a, '%d') + countInterp(a, '%s') + 1
-        o = `${util.format.apply(null, n)}`
+        o = String(util.format.apply(null, n))
       } else {
         o = format(n, this.formatOpts)
       }
